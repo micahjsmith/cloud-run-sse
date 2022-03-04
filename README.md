@@ -12,7 +12,7 @@ curl http://localhost:8080
 ```
 gcloud builds submit
 gcloud run deploy chunked-response \
-  --image gcr.io/mish-stg-1/chunked-response:debug \
+  --image gcr.io/${GCP_PROJECT_ID}/chunked-response:debug \
   --platform managed \
   --region us-east4 \
   --allow-unauthenticated

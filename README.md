@@ -17,3 +17,5 @@ gcloud run deploy chunked-response \
   --region us-east4 \
   --allow-unauthenticated
 ```
+
+![screenshot](https://user-images.githubusercontent.com/1439961/156754109-d5fc4661-49f5-4137-97b2-3cd95adead15.gif)

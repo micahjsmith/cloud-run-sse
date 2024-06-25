@@ -9,7 +9,6 @@ import (
 func main() {
 	http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
 		rw.Header().Add("Content-Type", "text/event-stream")
-		rw.Header().Add("Cache-Control", "no-cache")
 
 		flusher := rw.(http.Flusher)
 

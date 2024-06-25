@@ -23,9 +23,9 @@ curl http://localhost:8080
 Run on Cloud Run
 
 ```
-PROJECT=your-project
+PROJECT_ID=project
 REGION=us-central1
-gcloud config set project $PROJECT
+gcloud config set project $PROJECT_ID
 gcloud builds submit
 gcloud run deploy cloud-run-sse \
   --image gcr.io/$PROJECT_ID/cloud-run-sse:debug \

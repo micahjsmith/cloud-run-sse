@@ -1,22 +1,63 @@
-# Chunked Response
-![screenshot](https://user-images.githubusercontent.com/1439961/156754109-d5fc4661-49f5-4137-97b2-3cd95adead15.gif)
+# Cloud Run SSE
+
+Cloud Run does stream HTTP responses if the application server is using server-sent events
+with `Content-Type` header set to `text/event-stream`.
 
 ## Local
+
+Run locally
+
 ```
-docker build . -t chunked-response
-docker run -p 8080:8080 --rm chunked-response
+docker build . -t cloud-run-sse
+docker run -p 8080:8080 --rm cloud-run-sse
 ```
+
+Hit the local service
 
 ```
 curl http://localhost:8080
 ```
 
-## CloudRun
+## Cloud Run
+
+Run on Cloud Run
+
 ```
+PROJECT=your-project
+REGION=us-central1
+gcloud config set project $PROJECT
 gcloud builds submit
-gcloud run deploy chunked-response \
-  --image gcr.io/${GCP_PROJECT_ID}/chunked-response:debug \
+gcloud run deploy cloud-run-sse \
+  --image gcr.io/$PROJECT_ID/cloud-run-sse:debug \
   --platform managed \
-  --region us-east4 \
+  --region $REGION \
   --allow-unauthenticated
 ```
+
+Hit the service
+
+```
+$ curl -i https://cloud-run-sse-6hb7gs6xoq-uc.a.run.app
+HTTP/2 200
+cache-control: no-cache
+content-type: text/event-stream
+date: Tue, 25 Jun 2024 14:43:55 GMT
+server: Google Frontend
+
+data: a
+data: b
+data: c
+data: d
+data: e
+data: [DONE]
+```
+
+Clean up
+
+```
+gcloud run services delete cloud-run-sse --region $REGION
+```
+
+## Notes
+
+Adapted from https://github.com/malt03/chunked-response
